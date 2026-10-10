@@ -4,6 +4,7 @@ import {
   Search,
   Trash2,
   Calendar,
+  Clock,
   FolderKanban,
   KanbanSquare,
   ChevronDown,
@@ -270,14 +271,22 @@ export const TaskManager: React.FC = () => {
 
             {/* Selected Board Header & Task Actions */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800/80">
-              <div className="flex items-center gap-3">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                 <h2 className="text-lg sm:text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
                   {activeBoard.name}
                 </h2>
-                <span className="flex items-center gap-1 text-xs text-slate-400">
-                  <Calendar className="h-3 w-3" />
-                  <span>Created {formatDate(activeBoard.created_at)}</span>
-                </span>
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-slate-400">
+                  <span className="flex items-center gap-1">
+                    <Calendar className="h-3 w-3" />
+                    <span>Created: {formatDate(activeBoard.created_at)}</span>
+                  </span>
+                  {activeBoard.updated_at && activeBoard.updated_at !== activeBoard.created_at && (
+                    <span className="flex items-center gap-1 text-slate-400">
+                      <Clock className="h-3 w-3" />
+                      <span>Updated: {formatDate(activeBoard.updated_at)}</span>
+                    </span>
+                  )}
+                </div>
               </div>
 
               <div className="flex items-center gap-2">

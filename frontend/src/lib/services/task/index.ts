@@ -9,7 +9,7 @@ export interface Task {
   description: string | null;
   status: TaskStatus;
   created_at: string;
-  updated_at: string;
+  updated_at?: string | null;
   deleted_at?: string | null;
 }
 

@@ -25,7 +25,7 @@ class BoardResponse(BaseModel):
     id: int
     name: str
     created_at: datetime
-    updated_at: datetime
+    updated_at: Optional[datetime] = None
     deleted_at: Optional[datetime] = None
     task_count: Optional[int] = None
 

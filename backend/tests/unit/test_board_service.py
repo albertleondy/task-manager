@@ -17,6 +17,7 @@ class TestBoardService:
         assert created.id is not None
         assert created.name == "Sprint Planning"
         assert created.task_count == 0
+        assert created.updated_at is None
 
     def test_create_board_with_empty_name_fails(self, board_service: BoardService):
         """Failure case: Attempt to create a board with an empty string."""

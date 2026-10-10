@@ -4,9 +4,10 @@ import Input from "@/components/ui/input/Input";
 import Textarea from "@/components/ui/textarea/Textarea";
 import Select from "@/components/ui/select/Select";
 import Button from "@/components/ui/button/Button";
+import { Calendar, Clock } from "lucide-react";
 import { useUpdateTask } from "@/lib/hooks";
 import { showToast } from "@/components/ui/toast/showToast";
-import { extractErrorMessage } from "@/lib/utils";
+import { extractErrorMessage, formatDate } from "@/lib/utils";
 import { updateTaskSchema } from "@/lib/validations";
 import type { Task, TaskStatus } from "@/lib/services/task";
 
@@ -94,6 +95,19 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
       description="Update task details or change status."
     >
       <form onSubmit={handleSubmit} className="space-y-4 pt-2">
+        <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 p-2.5 rounded-lg border border-slate-100 dark:border-slate-800">
+          <span className="flex items-center gap-1">
+            <Calendar className="h-3.5 w-3.5 text-slate-400" />
+            <span>Created: {formatDate(task.created_at)}</span>
+          </span>
+          {task.updated_at && task.updated_at !== task.created_at && (
+            <span className="flex items-center gap-1">
+              <Clock className="h-3.5 w-3.5 text-slate-400" />
+              <span>Updated: {formatDate(task.updated_at)}</span>
+            </span>
+          )}
+        </div>
+
         <Input
           label="Title"
           placeholder="Task title"

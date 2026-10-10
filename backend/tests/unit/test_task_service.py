@@ -27,7 +27,7 @@ class TestTaskService:
         assert created_task.description == "Use SQLAlchemy and PostgreSQL types"
         assert created_task.status == TaskStatus.TODO
         assert created_task.created_at is not None
-        assert created_task.updated_at is not None
+        assert created_task.updated_at is None
 
     def test_create_task_default_status_is_todo(
         self, board_service: BoardService, task_service: TaskService
@@ -120,12 +120,21 @@ class TestTaskService:
     ):
         """Happy path: Updating task status."""
         board = board_service.create_board(BoardCreate(name="Update Board"))
+        board_before = board_service.get_board(board.id)
+        assert board_before.updated_at is None
+
         task = task_service.create_task(board.id, TaskCreate(title="Initial Task"))
+        assert task.updated_at is None
 
         updated = task_service.update_task(
             task.id, TaskUpdate(status=TaskStatus.IN_PROGRESS)
         )
         assert updated.status == TaskStatus.IN_PROGRESS
+        assert updated.updated_at is not None
+
+        # Verify board updated_at was also updated
+        board_after = board_service.get_board(board.id)
+        assert board_after.updated_at is not None
 
         updated_done = task_service.update_task(
             task.id, TaskUpdate(status=TaskStatus.DONE)

@@ -37,7 +37,7 @@ class Task(Base):
         index=True,
     )
     created_at = Column(DateTime, default=utc_now, nullable=False)
-    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now, nullable=False)
+    updated_at = Column(DateTime, nullable=True, default=None, onupdate=utc_now)
     deleted_at = Column(DateTime, nullable=True, default=None)
 
     board = relationship("Board", back_populates="tasks")

@@ -6,6 +6,7 @@ A robust, production-structured REST API for the Mini Task Management Applicatio
 
 ## 1. Stack Choice & Justification (Section 5)
 
+* **Language Choice (Python vs. Java):** Python was chosen primarily because it is the language I am most familiar with, allowing for rapid and confident implementation. Additionally, compared to Java (e.g., Spring Boot), Python with FastAPI eliminates heavy boilerplate, provides near-instant container startup, and operates with a drastically lower memory footprint (~50 MB vs. 300+ MB on the JVM) while still offering robust type safety and automatic OpenAPI generation.
 * **Backend Framework:** Python with **FastAPI**.
   * *Reason:* FastAPI provides first-class asynchronous support, automatic OpenAPI/Swagger interactive documentation, and high-performance validation via Pydantic v2. Its dependency injection system facilitates clean architectural layering and frictionless unit testing.
 * **Database & ORM:** **SQLite** (default zero-config) / **PostgreSQL** compatible via **SQLAlchemy 2.0**.

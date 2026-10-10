@@ -4,7 +4,7 @@ export interface Board {
   id: number;
   name: string;
   created_at: string;
-  updated_at?: string;
+  updated_at?: string | null;
   deleted_at?: string | null;
   task_count: number;
 }

@@ -4,7 +4,32 @@ A clean, production-grade task management system designed with independent **Bac
 
 ---
 
-## Quick Start Guide (Zero to Running in 2 Minutes)
+## Quick Start with Docker Compose (Recommended - Single Command)
+
+Get the entire application up and running completely (PostgreSQL database, FastAPI backend, and React frontend) with a single command:
+
+```bash
+docker compose up --build
+```
+
+- **Frontend Application:** Open **`http://localhost:5173`** in your browser.
+- **Backend API:** **`http://localhost:8000`**
+- **Interactive Swagger UI:** **`http://localhost:8000/docs`** (or via frontend proxy at `http://localhost:5173/docs`)
+- **PostgreSQL Database:** `localhost:5433` (database: `task_manager`, user: `postgres`, password: `postgres`)
+
+To run in the background (detached mode):
+```bash
+docker compose up -d
+```
+
+To shut down the services:
+```bash
+docker compose down
+```
+
+---
+
+## Local Development (Without Docker)
 
 ### Prerequisites
 * **Python:** 3.11, 3.12, or 3.13
@@ -108,6 +133,7 @@ task-manager/
 
 ### 1. Backend Service (`backend/`)
 * **Technology:** Python 3.11+, FastAPI, SQLAlchemy 2.0, Pydantic v2, Alembic, Pytest
+* **Why Python (vs. Java):** Python was chosen primarily because it is the language I am most familiar with, enabling rapid and confident development. Furthermore, research showed that Python with FastAPI provides significantly faster development velocity with minimal boilerplate, near-instant container startup times, and a drastically lower memory footprint (~50 MB vs. 300+ MB on the JVM) compared to Java frameworks like Spring Boot.
 * **Database & Transactions:**
   * **Zero-Config Default:** SQLite (`sqlite:///./tasks.db`) requires no local database server setup.
   * **Production Ready:** PostgreSQL compatibility with turnkey initialization scripts (`backend/scripts/setup_postgres.sh` / `backend/scripts/setup_postgres.py`).

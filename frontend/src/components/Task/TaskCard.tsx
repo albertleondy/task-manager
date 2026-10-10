@@ -1,5 +1,5 @@
 import React from "react";
-import { Edit3, Trash2, Clock, CheckCircle2, PlayCircle, RotateCcw } from "lucide-react";
+import { Edit3, Trash2, Clock, Calendar, CheckCircle2, PlayCircle, RotateCcw } from "lucide-react";
 import type { Task, TaskStatus } from "@/lib/services/task";
 
 import { Card, CardContent } from "@/components/ui/card/Card";
@@ -133,9 +133,17 @@ export const TaskCard: React.FC<TaskCardProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-1 text-[11px] text-slate-400">
-            <Clock className="h-3 w-3" />
-            <span>Created {formatDate(task.created_at)}</span>
+          <div className="flex flex-col gap-0.5 pt-1 text-[11px] text-slate-400 dark:text-slate-500">
+            <div className="flex items-center gap-1">
+              <Calendar className="h-3 w-3 shrink-0" />
+              <span>Created: {formatDate(task.created_at)}</span>
+            </div>
+            {task.updated_at && task.updated_at !== task.created_at && (
+              <div className="flex items-center gap-1">
+                <Clock className="h-3 w-3 shrink-0" />
+                <span>Updated: {formatDate(task.updated_at)}</span>
+              </div>
+            )}
           </div>
         </div>
       </CardContent>

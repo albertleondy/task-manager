@@ -41,6 +41,7 @@ class TaskRepository:
             title=title,
             description=description,
             status=status,
+            updated_at=None,
         )
         self.db.add(task)
         self.db.commit()
@@ -54,13 +55,23 @@ class TaskRepository:
         title: Optional[str] = None,
         description: Optional[str] = None,
     ) -> Task:
-        """Update an existing task's status, title, or description."""
+        """Update an existing task's status, title, or description and update parent board's updated_at."""
         if status is not None:
             task.status = status
         if title is not None:
             task.title = title
         if description is not None:
             task.description = description
+
+        now = datetime.now(timezone.utc)
+        task.updated_at = now
+
+        # Update parent board's updated_at on task update
+        from app.models.board import Board
+        board = self.db.query(Board).filter(Board.id == task.board_id, Board.deleted_at.is_(None)).first()
+        if board:
+            board.updated_at = now
+            self.db.add(board)
 
         self.db.add(task)
         self.db.commit()

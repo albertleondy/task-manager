@@ -30,7 +30,7 @@ class BoardRepository:
 
     def create(self, name: str) -> Board:
         """Create and persist a new board."""
-        board = Board(name=name)
+        board = Board(name=name, updated_at=None)
         self.db.add(board)
         self.db.commit()
         self.db.refresh(board)

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Trash2, Calendar, CheckSquare, ArrowRight } from "lucide-react";
+import { Trash2, Calendar, Clock, CheckSquare, ArrowRight } from "lucide-react";
 import type { Board } from "@/lib/services/board";
 
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card/Card";
@@ -26,9 +26,17 @@ export const BoardCard: React.FC<BoardCardProps> = ({ board, onDelete }) => {
               {board.name}
             </CardTitle>
           </Link>
-          <div className="mt-2 flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
-            <Calendar className="h-3.5 w-3.5 shrink-0" />
-            <span>Created {formatDate(board.created_at)}</span>
+          <div className="mt-2 flex flex-col gap-0.5 text-xs text-slate-500 dark:text-slate-400">
+            <div className="flex items-center gap-1.5">
+              <Calendar className="h-3.5 w-3.5 shrink-0" />
+              <span>Created: {formatDate(board.created_at)}</span>
+            </div>
+            {board.updated_at && board.updated_at !== board.created_at && (
+              <div className="flex items-center gap-1.5 text-slate-400 dark:text-slate-500 text-[11px]">
+                <Clock className="h-3 w-3 shrink-0" />
+                <span>Updated: {formatDate(board.updated_at)}</span>
+              </div>
+            )}
           </div>
         </div>
 

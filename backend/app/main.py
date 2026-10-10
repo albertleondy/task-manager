@@ -96,7 +96,7 @@ async def request_validation_handler(request: Request, exc: RequestValidationErr
         msg = msg[len("Value error, "):]
 
     return JSONResponse(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
         content=format_error_response(
             code="VALIDATION_FAILED",
             message=msg,
@@ -110,7 +110,7 @@ async def http_exception_handler(request: Request, exc: HTTPException):
     error_type = "BAD_REQUEST"
     if exc.status_code == status.HTTP_404_NOT_FOUND:
         error_type = "NOT_FOUND"
-    elif exc.status_code in (status.HTTP_400_BAD_REQUEST, status.HTTP_422_UNPROCESSABLE_ENTITY):
+    elif exc.status_code in (status.HTTP_400_BAD_REQUEST, status.HTTP_422_UNPROCESSABLE_CONTENT):
         error_type = "VALIDATION_FAILED"
 
     return JSONResponse(
